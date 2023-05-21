@@ -10,9 +10,11 @@ export async function GET(request: NextRequest) {
     code,
   })
 
+  const redirectTo = request.cookies.get('redirectTo')?.value
+
   const { token } = registerResponse.data
 
-  const redirectUrl = new URL('/', request.url)
+  const redirectUrl = redirectTo ?? new URL('/', request.url)
 
   const cookieExpiresInSeconds = 60 * 60 * 24 * 30
 
